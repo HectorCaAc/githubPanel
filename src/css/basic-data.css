@@ -1,0 +1,17 @@
+#picture{
+  background-color: green;
+  height: 175px;
+  width:175px;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: white;
+  display: inline-block;
+}
+
+.charts{
+  background-color: #785964;
+  z-index: 0;
+  height: 50%;
+  width: 75%;
+  margin: 10px;
+}

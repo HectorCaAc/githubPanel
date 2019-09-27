@@ -1,0 +1,9 @@
+how to get the commits of an user ?
+
+using the url
+https://api.github.com/repos/{user}/{repository}/commits
+
+That will give me the commits of the person iventory
+I will have to go throught everyone and
+get the data required for that, I am interested
+in the author part, the commit not that much.
