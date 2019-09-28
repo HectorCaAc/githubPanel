@@ -5,17 +5,21 @@ function BasicData(props){
   return (
     <div className="container">
         <div className="row justify-content-md-center">
-        <div className="col">
-            <span id={style.picture}>
-            <img src={props.image} alt="Picture Not Found" height="175" width="175"/>
-            </span>
-        </div>
-        <div className="col">
-          <div id="user">
-
+          <div className="col">
+              <img id={style.picture} src={props.picture} alt="Picture Not Found" height="175" width="175"/>
+          </div>
+          <div className={"col "} id={style.bio}>
+              <p>
+              {props.bio}
+              </p>
+              {props.languages.map((entry, id)=>
+                <span key={id} className={"btn btn-primary "+style.buttons}>
+                {entry}
+                </span>
+              )
+            }
           </div>
         </div>
-      </div>
     </div>
   )
 }

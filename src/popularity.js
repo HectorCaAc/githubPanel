@@ -8,15 +8,13 @@ export function Popularity(){
   return(
     <div className={style.charts}>
       <ol style={{listStyleType:"none"}}>
-          <li>Followers</li>
-          <li>Following</li>
-          <li>Company</li>
-          <li><i className={"fas fa-archway"}> hello</i>Location</li>
-          <li>hireable</li>
-          <li>Public repost</li>
-          <li></li>
+          <li><i className={"fas fa-user-friends"}></i> Followers</li>
+          <li><i className={"fas fa-walking"} ></i> Following</li>
+          <li><i className={"fas fa-industry"} ></i> Company</li>
+          <li><i className={"fas fa-map-marker-alt"} ></i> Location</li>
+          <li><i className={"fas fa-briefcase"} ></i> hireable</li>
+          <li><i className={"fab fa-github"} ></i> Public repost</li>
       </ol>
-      <i className="fas fa-archway">HETESTS</i>
     </div>
   )
 

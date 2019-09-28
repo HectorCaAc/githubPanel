@@ -6,12 +6,22 @@
   border-style: solid;
   border-color: white;
   display: inline-block;
+  margin-top: 8%;
 }
 
 .charts{
   background-color: #785964;
   z-index: 0;
-  height: 50%;
+  height: 100%;
   width: 75%;
-  margin: 10px;
+}
+
+#bio{
+  margin-top: 5%;
+  padding-bottom: 10%;
+  background-color: #f1fffa;
+}
+
+.buttons{
+  margin: 0% 1% 0% 1%;
 }

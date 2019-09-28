@@ -7,3 +7,11 @@ That will give me the commits of the person iventory
 I will have to go throught everyone and
 get the data required for that, I am interested
 in the author part, the commit not that much.
+
+Once I submit the username of a github account, How to make it work
+such as it will display a rendering loading once all the elements
+are loaded, My main concern is that it looks all the code will be
+used react and none will be html, It make sense, becuase that is
+part of the functionality of the server side, render the html.
+It looks it will have to use either create a class for that or
+write the whole page in react and render it that way. \
