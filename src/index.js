@@ -13,9 +13,19 @@ class Base extends React.Component{
     super()
 
     this.state ={
-              component_ready:false
+              component_ready:false,
+              data: {}
     }
 
+    this.username = this.username.bind(this)
+
+  }
+
+  username(data){
+    this.setState({
+      component_ready:true,
+      data:data
+    })
   }
 
   render(){
@@ -30,20 +40,27 @@ class Base extends React.Component{
     }
     return(
       <div>
-      <BasicData picture={data.picture} bio={data.bio} languages={data.languages}/>
-        <div className="charts">
-          <div className="row">
-            <div className="col">
-              <PieChart/>
-            </div>
-            <div className="col">
-              <Commits />
-            </div>
-            <div className="col">
-              <Popularity />
+        {this.state.component_ready &&
+        <div>
+        <BasicData picture={data.picture} bio={data.bio} languages={data.languages}/>
+          <div className="charts">
+            <div className="row">
+              <div className="col">
+                <PieChart/>
+              </div>
+              <div className="col">
+                <Commits />
+              </div>
+              <div className="col">
+                <Popularity />
+              </div>
             </div>
           </div>
         </div>
+        }
+        {!this.state.component_ready &&
+          <Form />
+        }
       </div>
     )
   }

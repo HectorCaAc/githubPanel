@@ -3,6 +3,16 @@ import style from './css/basic-data.css'
 import {VictoryStack, VictoryAxis,
         VictoryChart, VictoryBar} from 'victory';
 
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
+
 export function Commits(){
   const pushes =[
                 //every array is the enty for the whole data
@@ -52,7 +62,8 @@ export function Commits(){
     });
   });
 
-  var color=["black","blue","tomato","green"]
+  // var color=["black","blue","tomato","green"]
+  var color = pushes.map(()=>getRandomColor())
 
   return(
     <div className={style.charts}>
