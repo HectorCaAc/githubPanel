@@ -3,8 +3,6 @@ import style from './css/basic-data.css'
 
 export function Popularity(){
 
-  var message = "This is going to be a simple dashboard"
-  console.log("it is working ");
   return(
     <div className={style.charts}>
       <ol style={{listStyleType:"none"}}>

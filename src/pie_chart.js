@@ -3,8 +3,6 @@ import style from './css/basic-data.css'
 import {VictoryPie, VictoryLabel, VictoryTooltip} from 'victory';
 
 export function Test(){
-  // for now all the data is going to be static, in the future this will
-  // change for data that can be modified
 
   /*
     TODO:  It will required to add the localStorage functionality
@@ -23,63 +21,6 @@ export function Test(){
   var projects = 'https://api.github.com/repos/HectorCaAc/'
   var links = []
   var data_array = []
-
-    if (list.length === 0){
-    fetch(repositories)
-      .then(data => data.json())
-      .then(data => {console.log(data)
-        links = data.map(link =>{
-          if(typeof(link.language)=='string'){
-            return projects+link.name+'/languages'
-          }
-        }
-      )
-      setList(links)
-    })
-      .then(()=>{
-        console.log("This is the list with the final url of the projects")
-        console.log(links)
-        return Promise.all(
-                    links.map( (data)=>{
-                            if (typeof(data)=='string'){
-                              console.log(data);
-                              return fetch(data)
-                            }
-                          })
-                  ).then( data =>Promise.all(data.map((data_2)=> {
-                                                console.log("This is the data receipt");
-                                                console.log(data_2);
-                                                if (typeof(data_2)!="undefined"){
-                                                  return data_2.text()
-                                                }
-                                            }
-                )))
-                   .then( data => {
-                                      console.log("after the second promise")
-                                      console.log(data);
-                                    }
-                          )
-                }
-      ).then((data)=>{
-        console.log("PROMISES DATA ");
-        console.log(data)
-        })
-      // .then((data)=>{
-      //   console.log('All the requests are united 2');
-      //   console.log(data_array);
-      //   console.log('values of data key');
-      //   console.log(data);
-      // })
-      .catch( error =>{
-      console.log(error);
-    })
-
-    console.log(promise);
-    return (<div>
-              ....Loading Data
-          </div>
-      )
-    }
     // Outside of the if statement
     console.log(list);
     var languages_object = []
@@ -100,10 +41,7 @@ export function Test(){
 
 
 export function PieChart(props){
-
-  console.log("number of repositories "+props.repositories);
-  console.log("Total number of langues, with their respective languages");
-
+  
   var data = [
     {x: "java", y:10},
     {x: "css", y:10},

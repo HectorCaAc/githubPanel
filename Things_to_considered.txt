@@ -1,12 +1,8 @@
-how to get the commits of an user ?
-
-using the url
-https://api.github.com/repos/{user}/{repository}/commits
-
-That will give me the commits of the person iventory
-I will have to go throught everyone and
-get the data required for that, I am interested
-in the author part, the commit not that much.
+TODO:- For new users, it uses 21 api calls. but all the users
+    are store in the same place.
+    - It requires to enter one name and then after store
+      all the data, the page must reload to see all the
+      data. It is required to solve this problem 
 
 Once I submit the username of a github account, How to make it work
 such as it will display a rendering loading once all the elements
