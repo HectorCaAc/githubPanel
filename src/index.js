@@ -83,33 +83,57 @@ class Base extends React.Component{
     var commit = data.filter((entry)=>{
                     return entry.url.includes("/commits")
     })
-
-    console.log(languages);
-    // create map object, key = Language, value= number of projects that build that language
+    // create map object, key = Language, value= array of projects with this language
+    // variable use for the pie chart
     var languages_repetions = new Map()
     for (var index = 0 ; index < languages.length ; index++){
+        var project_name = languages[index].url.substring(0,languages[index].url.lastIndexOf("/"))
+        project_name=project_name.substring(project_name.lastIndexOf("/")+1)
         var language_name = Object.keys(languages[index]).filter((attribute)=> attribute!="url")[0]
         if(languages_repetions.has(language_name)){
-          var new_value = languages_repetions.get(language_name) +1
+          var new_value = languages_repetions.get(language_name)
+          new_value.push(project_name)
           languages_repetions.set(language_name, new_value)
         }else{
-          languages_repetions.set(language_name,1)
+          languages_repetions.set(language_name,[project_name])
         }
     }
-    // create a list of the previous 10 days,
+    console.log("This is the langueages ");
+    console.log(languages);
+    this.get_commit(languages, commit)
   }
-  //this method has not be used yet it is under construction
-  // It will use to format data in the format that commit js requires 
-  get_commit=(project_languages, commit)=>{
-    var url = commit.url
-    var project_name = url.substring(0,url.indexOf("/commit"))
-    project_name = url.substring(url.lastIndexOf("/")+1)
 
-    var language_project_array = project_languages.filter(entry => entry.url.includes(project_name))[0]
-    var language_project = Object.keys(language_project_array).filter(keys => keys!="url")
+  get_commit = (projects_languages, project_commits)=>{
+    /*
+      Params:
+        - Projects_languages : object where keys are the languages and the url of the project
+        - project_commits: array of objects, object.commits and object url
+        - user: github user, used to compare the author of the commits of one project
+    */
+    var map = new Map()
+    for( let entry in projects_languages){
+      let project = projects_languages[entry].url
+      project=project.substring(0,project.lastIndexOf("/"))
+      project=project.substring(project.lastIndexOf("/")+1)
+      console.log(Object.keys(projects_languages[entry]));
+      map.set(project, Object.keys(projects_languages[entry]))
+    }
+    console.log("This is the map")
+    console.log(map);
+    console.log("Getting data for the pie chart");
+    console.log(projects_languages)
+    console.log(project_commits);
+    var commits_languages = project_commits.map((entry)=>{
 
+    })
 
-
+    // I DO KNOW IF THIS IS A GOOD CODE AT ALL
+    // var url = project_commits.url
+    // var commits_array = project_commits.array
+    // var project_name = url.substring(0,url.indexOf("/commit"))
+    // project_name = url.substring(url.lastIndexOf("/")+1)
+    // var language_project_array = projects_languages.filter(entry => entry.url.includes(project_name))[0]
+    // var language_project = Object.keys(language_project_array).filter(keys => keys!="url")
 
   }
 
