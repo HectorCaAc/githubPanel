@@ -11,13 +11,13 @@ class Base extends React.Component{
 
   constructor(props){
     super()
-
     this.state ={
               component_ready:false,
               data: {},
               languages: [],
               pie_data : null,
               commits_data : null,
+              user_name: ""
     }
   }
 
@@ -73,7 +73,8 @@ class Base extends React.Component{
     var data = JSON.parse(localStorage.getItem("API"))
     this.decodeData(data)
     this.setState({
-      component_ready:true
+      component_ready:true,
+      user_name:data
     })
   }
 
@@ -125,7 +126,6 @@ class Base extends React.Component{
     })
     return commits
   }
-
   render(){
     var data ={
           picture:'https://avatars0.githubusercontent.com/u/17506593?v=4',
@@ -133,8 +133,6 @@ class Base extends React.Component{
           languages:['Java','Python','HTML','CSS','Javascript','Mysql'],
           projects_languages:[],
           person:{}
-
-
     }
     return(
       <div>
@@ -159,6 +157,7 @@ class Base extends React.Component{
         {!this.state.component_ready &&
           <Form callBack={this.username}/>
         }
+        {!this.state.component_ready && <h4>this.state.user_name</h4>}
       </div>
     )
   }
