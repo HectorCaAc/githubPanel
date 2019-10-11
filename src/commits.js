@@ -14,55 +14,19 @@ function getRandomColor() {
 
 
 export function Commits(props){
-  const pushes =[
-                //every array is the enty for the whole data
-    [ //JAVA it will be project
-      {x:'project1',y:2},
-      {x:'day 2',y:6},
-      {x:'day 3',y:2},
-      {x:'day 4',y:6},
-      {x:'day 5',y:2},
-      {x:'day 6',y:6}
-    ],
-    [ // PYTHON
-      {x:'project1',y:1},
-      {x:'day 2',y:2},
-      {x:'day 3',y:3},
-      {x:'day 4',y:4},
-      {x:'day 5',y:5},
-      {x:'day 6',y:6}
-    ],
-    [ //CSS
-      {x:'project1',y:7},
-      {x:'day 2',y:14},
-      {x:'day 3',y:18},
-      {x:'day 4',y:10},
-      {x:'day 5',y:7},
-      {x:'day 6',y:12}
-    ],
-    [ //Javascript
-      {x:'project1',y:20},
-      {x:'day 2',y:15},
-      {x:'day 3',y:5},
-      {x:'day 4',y:0},
-      {x:'day 5',y:16},
-      {x:'day 6',y:15}
-    ],
-  ]
-
   //Function use to transform data into 100%
-  const totals = pushes[0].map((data, i) => {
-    return pushes.reduce((memo, curr) => {
-      return memo + curr[i].y;
-    }, 0);
-  });
-  var percentage_list =  pushes.map((data) => {
-    return data.map((datum, i) => {
-      return { x: datum.x, y: (datum.y / totals[i]) * 100 };
-    });
-  });
-
-  var color = pushes.map(()=>getRandomColor())
+  // const totals = props.data[0].map((data, i) => {
+  //   return props.data((memo, curr) => {
+  //     return memo + curr[i].y;
+  //   }, 0);
+  // });
+  // var percentage_list =  props.data.map((data) => {
+  //   return data.map((datum, i) => {
+  //     return { x: datum.x, y: (datum.y / totals[i]) * 100 };
+  //   });
+  // });
+  //
+  // var color = props.data.map(()=>getRandomColor())
 
   return(
   <div className={style.charts}>
