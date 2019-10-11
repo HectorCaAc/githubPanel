@@ -15,7 +15,9 @@ class Base extends React.Component{
     this.state ={
               component_ready:false,
               data: {},
-              languages: []
+              languages: [],
+              pie_data : null,
+              commits_data : null,
     }
   }
 
@@ -83,58 +85,45 @@ class Base extends React.Component{
     var commit = data.filter((entry)=>{
                     return entry.url.includes("/commits")
     })
-    // create map object, key = Language, value= array of projects with this language
-    // variable use for the pie chart
-    var languages_repetions = new Map()
+
+    let commits_data = this.get_commit_per_project(commit)
+    let projects_languages = this.get_projects_per_language(languages)
+    console.log("··············")
+    console.log(projects_languages)
+    console.log(commits_data)
+    this.setState({
+              pie_data: projects_languages,
+              commits_data: commits_data,
+              component_ready: true
+    })
+  }
+  get_projects_per_language = (languages)=>{
+    var languages_projects = new Map()
     for (var index = 0 ; index < languages.length ; index++){
         var project_name = languages[index].url.substring(0,languages[index].url.lastIndexOf("/"))
         project_name=project_name.substring(project_name.lastIndexOf("/")+1)
         var language_name = Object.keys(languages[index]).filter((attribute)=> attribute!="url")[0]
-        if(languages_repetions.has(language_name)){
-          var new_value = languages_repetions.get(language_name)
+        if(languages_projects.has(language_name)){
+          var new_value = languages_projects.get(language_name)
           new_value.push(project_name)
-          languages_repetions.set(language_name, new_value)
+          languages_projects.set(language_name, new_value)
         }else{
-          languages_repetions.set(language_name,[project_name])
+          languages_projects.set(language_name,[project_name])
         }
     }
-    console.log("This is the langueages ");
-    console.log(languages);
-    this.get_commit(languages, commit)
+    return languages_projects
   }
 
-  get_commit = (projects_languages, project_commits)=>{
-    /*
-      Params:
-        - Projects_languages : object where keys are the languages and the url of the project
-        - project_commits: array of objects, object.commits and object url
-        - user: github user, used to compare the author of the commits of one project
-    */
-    var map = new Map()
-    for( let entry in projects_languages){
-      let project = projects_languages[entry].url
-      project=project.substring(0,project.lastIndexOf("/"))
-      project=project.substring(project.lastIndexOf("/")+1)
-      console.log(Object.keys(projects_languages[entry]));
-      map.set(project, Object.keys(projects_languages[entry]))
-    }
-    console.log("This is the map")
-    console.log(map);
-    console.log("Getting data for the pie chart");
-    console.log(projects_languages)
-    console.log(project_commits);
-    var commits_languages = project_commits.map((entry)=>{
-
+  get_commit_per_project = (project_commits)=>{
+    let commits = project_commits.map((entry)=>{
+                                    let project = entry.url.substring(0,entry.url.lastIndexOf("/"))
+                                    project = project.substring(project.lastIndexOf("/")+1)
+                                    if (entry.hasOwnProperty("array")){
+                                        return ({x:project , y:entry.array.length})
+                                      }
+                                    return {x:project, y:0}
     })
-
-    // I DO KNOW IF THIS IS A GOOD CODE AT ALL
-    // var url = project_commits.url
-    // var commits_array = project_commits.array
-    // var project_name = url.substring(0,url.indexOf("/commit"))
-    // project_name = url.substring(url.lastIndexOf("/")+1)
-    // var language_project_array = projects_languages.filter(entry => entry.url.includes(project_name))[0]
-    // var language_project = Object.keys(language_project_array).filter(keys => keys!="url")
-
+    return commits
   }
 
   render(){
@@ -155,10 +144,10 @@ class Base extends React.Component{
           <div className="charts">
             <div className="row">
               <div className="col">
-                <PieChart/>
+                <PieChart data={this.state.pie_data}/>
               </div>
               <div className="col">
-                <Commits />
+                <Commits data={this.state.commits_data} />
               </div>
               <div className="col">
                 <Popularity />

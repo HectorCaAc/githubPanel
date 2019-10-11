@@ -2,53 +2,11 @@ import React, {useState, useEffect} from 'react';
 import style from './css/basic-data.css'
 import {VictoryPie, VictoryLabel, VictoryTooltip} from 'victory';
 
-export function Test(){
-
-  /*
-    TODO:  It will required to add the localStorage functionality
-      to store the languages, such in the future the user would not
-      have to make all the requests again, ( It could over use the
-      languages of the user , the key will be the username, which
-      will allow to register user in different parts  )
-
-      Also If I dont add the authentication system that could be used
-      for getting many requests, then I should add some logic that
-      which if the answer is not enough data then display
-      a title with the time required until the system is in use again
-  */
-  const [list, setList] = useState([0])
-  var repositories = 'https://api.github.com/users/HectorCaAc/repos'
-  var projects = 'https://api.github.com/repos/HectorCaAc/'
-  var links = []
-  var data_array = []
-    // Outside of the if statement
-    console.log(list);
-    var languages_object = []
-    var languages = []
-    var elements = list.map((entry, index) =>{
-        return(
-            <div  key={index}>
-                { entry.language }
-            </div>
-        )
-    })
-
-    return (<div>
-            {elements}
-          </div>
-      )
-    }
-
-
 export function PieChart(props){
-  
-  var data = [
-    {x: "java", y:10},
-    {x: "css", y:10},
-    {x: "Python", y:15},
-    {x: "javascript", y:15},
-    {x: "Html", y:50}
-  ]
+  let data =[]
+  props.data.forEach((value, key)=>{
+                    data.push({x:key,y:value.length})
+  })
   return(
     <div className={style.charts}>
       <h3>Languages used by the user </h3>
@@ -62,8 +20,6 @@ export function PieChart(props){
         />
     </div>
   )
-
-
 }
 
 // IF I wanted to customise the Label to show more data, it will required
