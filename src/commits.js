@@ -14,6 +14,7 @@ function getRandomColor() {
 
 
 export function Commits(props){
+
   //Function use to transform data into 100%
   // const totals = props.data[0].map((data, i) => {
   //   return props.data((memo, curr) => {

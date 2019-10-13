@@ -7,6 +7,9 @@ import {Commits} from './commits.js';
 import {Popularity} from './popularity.js';
 import {Form} from './enterName.js';
 
+// still required to find the way to look for the username
+// It will be a good idea to read more about react
+// to be specific when a product render, and when a product just update the DOM
 class Base extends React.Component{
 
   constructor(props){
@@ -14,10 +17,11 @@ class Base extends React.Component{
     this.state ={
               component_ready:false,
               data: {},
+              other_data : {},
               languages: [],
               pie_data : null,
               commits_data : null,
-              user_name: ""
+              user_name: "",
     }
   }
 
@@ -62,8 +66,35 @@ class Base extends React.Component{
                   )
               )
     }
-  ).then(data => localStorage.setItem("API",JSON.stringify(data)))
+    ).then(data => localStorage.setItem("API",JSON.stringify(data)))
+  }
 
+// parse the years and the last update in a better format, I do not like the
+// current one
+  get_profile=(github_user_name)=>{
+    let profile ="https://api.github.com/users/"+github_user_name
+    fetch(profile)
+    .then((data)=> data.json())
+    .then((data)=>{
+      let user = new Object()
+      user.picture = data.avatar
+      user.bio = data.bio? data.bio :"No BIO "
+      let other_data = new Object()
+      other_data.location= data.location? data.location: "Some place"
+      other_data.company = data.company ? data.company : "No company"
+      other_data.hireable = data.hireable ? data.hireable: "No"
+      other_data.public_repos = data.public_repos? data.public_repos: 0
+      other_data.public_gists = data.public_gists ? data.public_gists: 0
+      other_data.followers = data.followers ? data.followers: 0
+      other_data.following= data.following ? data.following: 0
+      other_data.years = data.created_at? data.created_at: "0"
+      other_data.last_udpate = data.updated_at? data.updated_at:"0"
+
+      this.setState({
+        data : user,
+        other_data: other_data
+      })
+    })
   }
 
   username = (data)=>{
@@ -89,6 +120,7 @@ class Base extends React.Component{
 
     let commits_data = this.get_commit_per_project(commit)
     let projects_languages = this.get_projects_per_language(languages)
+    this.get_profile("HectorCaAc")
     console.log("··············")
     console.log(projects_languages)
     console.log(commits_data)
