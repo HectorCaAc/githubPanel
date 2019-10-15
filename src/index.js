@@ -69,19 +69,19 @@ class Base extends React.Component{
     ).then(data => localStorage.setItem("API",JSON.stringify(data)))
   }
 
-  username = (user_name)=>{
+  username = async(user_name)=>{
     if(!localStorage.getItem("API")){
       this.get_languages(user_name)
     }
     var data = JSON.parse(localStorage.getItem("API"))
-    let personal_info = this.get_profile(user_name).then((data)=>console.log(data))
+    let personal_info = await this.get_profile(user_name)
     let charts = this.decodeData(data)
     // console.log("user_name");
     // console.log(user_name);
     // console.log("charts");
     // console.log(charts);
-    console.log("personal_info");
-    console.log(personal_info);
+    console.log("personal_info")
+    console.log(personal_info)
     this.setState({
       user_name:user_name,
       pie_data: charts[0],
@@ -105,9 +105,9 @@ class Base extends React.Component{
   }
   // parse the years and the last update in a better format, I do not like the
   // current one
-  get_profile=(github_user_name)=>{
+  get_profile=async(github_user_name)=>{
       let profile ="https://api.github.com/users/"+github_user_name
-      let data = fetch(profile)
+      let data = await fetch(profile)
       .then((data)=> data.json())
       .then((data)=>{
         let user = new Object()
@@ -170,6 +170,8 @@ class Base extends React.Component{
   }
 
   render(){
+    console.log("data")
+    console.log(this.state.other_data)
     return(
       <div>
         {this.state.component_ready &&
@@ -185,7 +187,7 @@ class Base extends React.Component{
                 <Commits data={this.state.commits_data} />
               </div>
               <div className="col">
-                <Popularity />
+                <Popularity data={this.state.other_data} />
               </div>
             </div>
           </div>
