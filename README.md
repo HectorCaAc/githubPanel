@@ -15,3 +15,5 @@ git clone
 cd github
 npm run start
 ```
+## Next Steps
+It is possible to find the next steps in the file Things_to_considered
