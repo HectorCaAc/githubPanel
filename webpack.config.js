@@ -19,7 +19,8 @@ module.exports = {
             options:{
               presets:['@babel/react',
                       '@babel/env'],
-              plugins: ["transform-class-properties"]
+              plugins: ["transform-class-properties",
+                        "@babel/plugin-transform-runtime"]
             },
 
           }

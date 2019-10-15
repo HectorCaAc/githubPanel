@@ -21,7 +21,7 @@ class Base extends React.Component{
               languages: [],
               pie_data : null,
               commits_data : null,
-              user_name: "",
+              user_name: "LOADING DATA",
     }
   }
 
@@ -69,46 +69,28 @@ class Base extends React.Component{
     ).then(data => localStorage.setItem("API",JSON.stringify(data)))
   }
 
-// parse the years and the last update in a better format, I do not like the
-// current one
-  get_profile=(github_user_name)=>{
-    let profile ="https://api.github.com/users/"+github_user_name
-    fetch(profile)
-    .then((data)=> data.json())
-    .then((data)=>{
-      let user = new Object()
-      user.picture = data.avatar
-      user.bio = data.bio? data.bio :"No BIO "
-      let other_data = new Object()
-      other_data.location= data.location? data.location: "Some place"
-      other_data.company = data.company ? data.company : "No company"
-      other_data.hireable = data.hireable ? data.hireable: "No"
-      other_data.public_repos = data.public_repos? data.public_repos: 0
-      other_data.public_gists = data.public_gists ? data.public_gists: 0
-      other_data.followers = data.followers ? data.followers: 0
-      other_data.following= data.following ? data.following: 0
-      other_data.years = data.created_at? data.created_at: "0"
-      other_data.last_udpate = data.updated_at? data.updated_at:"0"
-
-      this.setState({
-        data : user,
-        other_data: other_data
-      })
-    })
-  }
-
-  username = (data)=>{
+  username = (user_name)=>{
     if(!localStorage.getItem("API")){
-      this.get_languages(data)
+      this.get_languages(user_name)
     }
     var data = JSON.parse(localStorage.getItem("API"))
-    this.decodeData(data)
+    let personal_info = this.get_profile(user_name).then((data)=>console.log(data))
+    let charts = this.decodeData(data)
+    // console.log("user_name");
+    // console.log(user_name);
+    // console.log("charts");
+    // console.log(charts);
+    console.log("personal_info");
+    console.log(personal_info);
     this.setState({
-      component_ready:true,
-      user_name:data
+      user_name:user_name,
+      pie_data: charts[0],
+      commits_data:charts[1],
+      data: personal_info[0],
+      other_data: personal_info[1],
+      component_ready: true
     })
   }
-
   //Decode required data gather from the api's
   decodeData=(data)=>{
     var languages = data.filter((entry)=>{
@@ -117,31 +99,59 @@ class Base extends React.Component{
     var commit = data.filter((entry)=>{
                     return entry.url.includes("/commits")
     })
-
     let commits_data = this.get_commit_per_project(commit)
     let projects_languages = this.get_projects_per_language(languages)
-    this.get_profile("HectorCaAc")
-    console.log("··············")
-    console.log(projects_languages)
-    console.log(commits_data)
-    this.setState({
-              pie_data: projects_languages,
-              commits_data: commits_data,
-              component_ready: true
-    })
+    return [projects_languages, commits_data]
   }
+  // parse the years and the last update in a better format, I do not like the
+  // current one
+  get_profile=(github_user_name)=>{
+      let profile ="https://api.github.com/users/"+github_user_name
+      let data = fetch(profile)
+      .then((data)=> data.json())
+      .then((data)=>{
+        let user = new Object()
+        user.picture = data.avatar_url
+        user.bio = data.bio? data.bio :"No BIO "
+        let other_data = new Object()
+        other_data.location= data.location? data.location: "Some place"
+        other_data.company = data.company ? data.company : "No company"
+        other_data.hireable = data.hireable ? data.hireable: "No"
+        other_data.public_repos = data.public_repos? data.public_repos: 0
+        other_data.public_gists = data.public_gists ? data.public_gists: 0
+        other_data.followers = data.followers ? data.followers: 0
+        other_data.following= data.following ? data.following: 0
+        other_data.years = data.created_at? data.created_at: "0"
+        other_data.last_udpate = data.updated_at? data.updated_at:"0"
+        return [user, other_data]
+      })
+      .catch((error)=>{
+        let user = new Object()
+        user.picture = "no picture"
+        user.bio = "no data"
+        let other_data=new Object()
+        console.log("requests not sucess");
+        return [user, other_data]
+      })
+      return data
+    }
+
   get_projects_per_language = (languages)=>{
     var languages_projects = new Map()
     for (var index = 0 ; index < languages.length ; index++){
         var project_name = languages[index].url.substring(0,languages[index].url.lastIndexOf("/"))
         project_name=project_name.substring(project_name.lastIndexOf("/")+1)
-        var language_name = Object.keys(languages[index]).filter((attribute)=> attribute!="url")[0]
-        if(languages_projects.has(language_name)){
-          var new_value = languages_projects.get(language_name)
-          new_value.push(project_name)
-          languages_projects.set(language_name, new_value)
-        }else{
-          languages_projects.set(language_name,[project_name])
+        var language_name = Object.keys(languages[index]).filter((attribute)=> attribute !=="url")
+        if(language_name.length > 0){
+          language_name.forEach((language)=>{
+            if(languages_projects.has(language)){
+              var new_value = languages_projects.get(language)
+              new_value.push(project_name)
+              languages_projects.set(language, new_value)
+            }else{
+              languages_projects.set(language,[project_name])
+            }
+          })
         }
     }
     return languages_projects
@@ -158,19 +168,14 @@ class Base extends React.Component{
     })
     return commits
   }
+
   render(){
-    var data ={
-          picture:'https://avatars0.githubusercontent.com/u/17506593?v=4',
-          bio:"THis is a really long message that will display with all the data that is required to show this data, It will really usefull when it necessary to show some really cool techinuqes that required github",
-          languages:['Java','Python','HTML','CSS','Javascript','Mysql'],
-          projects_languages:[],
-          person:{}
-    }
     return(
       <div>
         {this.state.component_ready &&
         <div>
-        <BasicData picture={data.picture} bio={data.bio} languages={data.languages}/>
+        <BasicData data={this.state.data}
+                   languages={this.state.pie_data}/>
           <div className="charts">
             <div className="row">
               <div className="col">
