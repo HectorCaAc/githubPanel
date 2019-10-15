@@ -20,7 +20,6 @@ export function Form(props){
   }
 
   var effect = (event)=>{
-
     if(typeof event !== "undefined"){
       event.preventDefault()
       var data = event.target[0].value
@@ -28,30 +27,28 @@ export function Form(props){
       localStorage.setItem("data",data)
       setTimeout(()=>{props.callBack(data)}, 2000)
     }
-
   }
-
     var form = null
     if (loading){
-          form = (
-                <form onSubmit ={e=>effect(e)}>
-                  <label>
-                    Please enter the Github username to see the staticst
-                  </label>
-                  <div className="form-group">
-                    <input className="form-control col-md-2" type="submint"/>
-                  </div>
-                  <button onClick={()=> effect(name)} className="btn btn-primary">Look for staticst</button>
-                </form>
-              )
+          form = <div className="row justify-content-center">
+                  <div className="col-5" >
+                    <form onSubmit ={e=>effect(e)}>
+                    <label>
+                      Please enter the Github username to see the staticst
+                    </label>
+                    <div className="form-group">
+                      <input className="form-control" type="submint"/>
+                    </div>
+                    <button onClick={()=> effect(name)} className="btn btn-primary">Look for staticst</button>
+                  </form>
+                </div>
+              </div>
       }else{
         form =
               <h4>
                 DATA IS LOADING ......
               </h4>
       }
-
-
   return (
     <div>
       <ReactModal isOpen={true}>
