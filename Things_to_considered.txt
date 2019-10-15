@@ -2,7 +2,21 @@ TODO:- For new users, it uses 21 api calls. but all the users
     are store in the same place.
     - It requires to enter one name and then after store
       all the data, the page must reload to see all the
-      data. It is required to solve this problem 
+      data. It is required to solve this problem.
+
+    - Number of commits per project just show data max of 30,
+    it required to fix this problem. also if there are more
+    than 10 projects then display this pannel bellow
+
+    - Under the picture of the user display the following data
+      * project with the most commits.
+      * how many commits from other users his project receives
+      * it could change the design of the box that display the
+        languages, also included some kind of label to know
+        which is the user more expert, and be able to sort them.
+
+    - Thrid pannel requires to improve desing
+
 
 Once I submit the username of a github account, How to make it work
 such as it will display a rendering loading once all the elements
