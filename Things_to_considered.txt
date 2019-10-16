@@ -1,8 +1,5 @@
 TODO:- For new users, it uses 21 api calls. but all the users
     are store in the same place.
-    - It requires to enter one name and then after store
-      all the data, the page must reload to see all the
-      data. It is required to solve this problem.
 
     - Number of commits per project just show data max of 30,
     it required to fix this problem. also if there are more
