@@ -25,13 +25,13 @@ class Base extends React.Component{
     }
   }
 
-  get_languages=(githubUserName)=>{
+  get_languages=async(githubUserName)=>{
     var projects = []
     var links = []
     var commits = []
     var languages = []
     var url = "https://api.github.com/users/"+githubUserName+"/repos"
-    fetch(url)
+    await fetch(url)
       .then((data)=>data.json())
       .then(data => {
             for (var index = 0 ; index < 10 && index < data.length ; index++){
@@ -69,11 +69,13 @@ class Base extends React.Component{
     ).then(data => localStorage.setItem("API",JSON.stringify(data)))
   }
 
-  username = async(user_name)=>{
+  start_set_up = async(user_name)=>{
     if(!localStorage.getItem("API")){
-      this.get_languages(user_name)
+      await this.get_languages(user_name)
     }
     var data = JSON.parse(localStorage.getItem("API"))
+    console.log("This is the data set up in the localStorage");
+    console.log(data);
     let personal_info = await this.get_profile(user_name)
     let charts = this.decodeData(data)
     // console.log("user_name");
@@ -170,31 +172,31 @@ class Base extends React.Component{
   }
 
   render(){
-    console.log("data")
-    console.log(this.state.other_data)
+    console.log("component ready");
+    console.log(this.state.component_ready)
     return(
       <div>
         {this.state.component_ready &&
-        <div>
-        <BasicData data={this.state.data}
-                   languages={this.state.pie_data}/>
-          <div className="charts">
-            <div className="row">
-              <div className="col">
-                <PieChart data={this.state.pie_data}/>
-              </div>
-              <div className="col">
-                <Commits data={this.state.commits_data} />
-              </div>
-              <div className="col">
-                <Popularity data={this.state.other_data} />
+          <div>
+          <BasicData data={this.state.data}
+                     languages={this.state.pie_data}/>
+            <div className="charts">
+              <div className="row">
+                <div className="col">
+                  <PieChart data={this.state.pie_data}/>
+                </div>
+                <div className="col">
+                  <Commits data={this.state.commits_data} />
+                </div>
+                <div className="col">
+                  <Popularity data={this.state.other_data} />
+                </div>
               </div>
             </div>
           </div>
-        </div>
         }
         {!this.state.component_ready &&
-          <Form callBack={this.username}/>
+          <Form callBack={this.start_set_up}/>
         }
         {!this.state.component_ready && <h4>this.state.user_name</h4>}
       </div>

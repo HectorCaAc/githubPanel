@@ -9,10 +9,10 @@ export function Form(props){
 
   let key = localStorage.getItem("data")
 
-  useEffect((event)=>{
-    setName(event)
-    // console.log(event);
-  })
+  // useEffect((event)=>{
+  //   setName(event)
+  //   // console.log(event);
+  // })
 
   if (key){
     console.log("Data was set up!!");
@@ -30,24 +30,26 @@ export function Form(props){
   }
     var form = null
     if (loading){
-          form = <div className="row justify-content-center">
+          form = <div className="row justify-content-center" style={{marginTop: "10%"}}>
                   <div className="col-5" >
-                    <form onSubmit ={e=>effect(e)}>
-                    <label>
-                      Please enter the Github username to see the staticst
-                    </label>
+                    <h3>Github User</h3>
+                    <form onSubmit ={e=>effect(e)}  >
                     <div className="form-group">
                       <input className="form-control" type="submint"/>
                     </div>
-                    <button onClick={()=> effect(name)} className="btn btn-primary">Look for staticst</button>
+                    <button  className="btn btn-primary">Get Data</button>
                   </form>
                 </div>
               </div>
       }else{
         form =
-              <h4>
-                DATA IS LOADING ......
-              </h4>
+            <div className="row justify-content-center" style={{marginTop: "10%"}}>
+              <div className="col-5">
+                <h4>
+                  DATA IS LOADING ......
+                </h4>
+              </div>
+            </div>
       }
   return (
     <div>
