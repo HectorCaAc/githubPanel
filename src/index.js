@@ -160,6 +160,8 @@ class Base extends React.Component{
   }
 
   get_commit_per_project = (project_commits)=>{
+    console.log("Data here")
+    console.log(project_commits)
     let commits = project_commits.map((entry)=>{
                                     let project = entry.url.substring(0,entry.url.lastIndexOf("/"))
                                     project = project.substring(project.lastIndexOf("/")+1)
@@ -172,8 +174,10 @@ class Base extends React.Component{
   }
 
   render(){
-    console.log("component ready");
-    console.log(this.state.component_ready)
+    let too_many_projects = false
+    if(this.state.commits_data && this.state.commits_data.length > 5){
+      too_many_projects = true
+    }
     return(
       <div>
         {this.state.component_ready &&
@@ -185,13 +189,22 @@ class Base extends React.Component{
                 <div className="col">
                   <PieChart data={this.state.pie_data}/>
                 </div>
-                <div className="col">
-                  <Commits data={this.state.commits_data} />
-                </div>
+                {!too_many_projects &&
+                  <div className="col">
+                    <Commits data={this.state.commits_data} />
+                  </div>
+                }
                 <div className="col">
                   <Popularity data={this.state.other_data} />
                 </div>
               </div>
+              {too_many_projects &&
+                <div className="row" style={{margin:"20px"}}>
+                  <div className="col align-self-center">
+                    <Commits data={this.state.commits_data} />
+                  </div>
+                </div>
+              }
             </div>
           </div>
         }

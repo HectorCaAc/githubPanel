@@ -12,7 +12,6 @@ function getRandomColor() {
   return color;
 }
 
-
 export function Commits(props){
 
   //Function use to transform data into 100%
@@ -29,6 +28,12 @@ export function Commits(props){
   //
   // var color = props.data.map(()=>getRandomColor())
 
+  let chart_style = {
+        data:{ fill:getRandomColor()},
+        labels:{fontsize:25}
+  }
+  console.log("Data to the commits chart")
+  console.log(props.data)
   return(
   <div className={style.charts}>
       <h3>Number of commits per project</h3>
@@ -36,9 +41,7 @@ export function Commits(props){
            domainPadding={{ x: 50, y: [0, 20] }}
            scale={{ x: "linear" }} >
            <VictoryBar
-             dataComponent={
-               <Bar/>
-             }
+             style={chart_style}
              data={props.data}
            />
          </VictoryChart>
