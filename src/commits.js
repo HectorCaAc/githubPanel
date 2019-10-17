@@ -30,7 +30,7 @@ export function Commits(props){
 
   let chart_style = {
         data:{ fill:getRandomColor()},
-        labels:{fontsize:25}
+        labels:{fontsize:15}
   }
   console.log("Data to the commits chart")
   console.log(props.data)

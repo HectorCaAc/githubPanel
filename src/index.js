@@ -164,11 +164,20 @@ class Base extends React.Component{
     console.log(project_commits)
     let commits = project_commits.map((entry)=>{
                                     let project = entry.url.substring(0,entry.url.lastIndexOf("/"))
-                                    project = project.substring(project.lastIndexOf("/")+1)
+                                    let last_slash = project.lastIndexOf("/")+1
+                                    project.substring(last_slash)
+                                    let name_project = ""
+                                    if(project.length > 9){
+                                      name_project = project.substring(last_slash, last_slash+9)+".."
+                                    }else{
+                                      name_project = project.substring(last_slash)
+                                    }
+                                    console.log("Projects name")
+                                    console.log(project)
                                     if (entry.hasOwnProperty("array")){
-                                        return ({x:project , y:entry.array.length})
+                                        return ({x:name_project , y:entry.array.length})
                                       }
-                                    return {x:project, y:0}
+                                    return {x:name_project, y:0}
     })
     return commits
   }
