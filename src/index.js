@@ -50,8 +50,6 @@ class Base extends React.Component{
                     fetch(entry)
                     .then(data=>data.json())
                     .then(data=>{
-                      console.log("Inside of the promise all ")
-                      console.log(data);
                       if(data.hasOwnProperty("length")){
                         var complex = {
                                   array: data,
@@ -70,20 +68,13 @@ class Base extends React.Component{
   }
 
   start_set_up = async(user_name)=>{
+
     if(!localStorage.getItem("API")){
       await this.get_languages(user_name)
     }
     var data = JSON.parse(localStorage.getItem("API"))
-    console.log("This is the data set up in the localStorage");
-    console.log(data);
     let personal_info = await this.get_profile(user_name)
     let charts = this.decodeData(data)
-    // console.log("user_name");
-    // console.log(user_name);
-    // console.log("charts");
-    // console.log(charts);
-    console.log("personal_info")
-    console.log(personal_info)
     this.setState({
       user_name:user_name,
       pie_data: charts[0],
@@ -132,7 +123,6 @@ class Base extends React.Component{
         user.picture = "no picture"
         user.bio = "no data"
         let other_data=new Object()
-        console.log("requests not sucess");
         return [user, other_data]
       })
       return data
@@ -160,8 +150,6 @@ class Base extends React.Component{
   }
 
   get_commit_per_project = (project_commits)=>{
-    console.log("Data here")
-    console.log(project_commits)
     let commits = project_commits.map((entry)=>{
                                     let project = entry.url.substring(0,entry.url.lastIndexOf("/"))
                                     let last_slash = project.lastIndexOf("/")+1
@@ -172,14 +160,18 @@ class Base extends React.Component{
                                     }else{
                                       name_project = project.substring(last_slash)
                                     }
-                                    console.log("Projects name")
-                                    console.log(project)
                                     if (entry.hasOwnProperty("array")){
                                         return ({x:name_project , y:entry.array.length})
                                       }
                                     return {x:name_project, y:0}
     })
     return commits
+  }
+
+  clear_local_store =()=>{
+    this.setState({
+          component_ready:false
+    })
   }
 
   render(){
@@ -191,30 +183,32 @@ class Base extends React.Component{
       <div>
         {this.state.component_ready &&
           <div>
-          <BasicData data={this.state.data}
-                     languages={this.state.pie_data}/>
-            <div className="charts">
-              <div className="row">
-                <div className="col">
-                  <PieChart data={this.state.pie_data}/>
-                </div>
-                {!too_many_projects &&
+            <button className="btn btn-light"
+                    onClick={()=> this.clear_local_store()}>Enter a new user </button>
+            <BasicData data={this.state.data}
+                       languages={this.state.pie_data}/>
+              <div className="charts">
+                <div className="row">
                   <div className="col">
-                    <Commits data={this.state.commits_data} />
+                    <PieChart data={this.state.pie_data}/>
+                  </div>
+                  {!too_many_projects &&
+                    <div className="col">
+                      <Commits data={this.state.commits_data} />
+                    </div>
+                  }
+                  <div className="col">
+                    <Popularity data={this.state.other_data} />
+                  </div>
+                </div>
+                {too_many_projects &&
+                  <div className="row" style={{margin:"20px"}}>
+                    <div className="col align-self-center">
+                      <Commits data={this.state.commits_data} />
+                    </div>
                   </div>
                 }
-                <div className="col">
-                  <Popularity data={this.state.other_data} />
-                </div>
               </div>
-              {too_many_projects &&
-                <div className="row" style={{margin:"20px"}}>
-                  <div className="col align-self-center">
-                    <Commits data={this.state.commits_data} />
-                  </div>
-                </div>
-              }
-            </div>
           </div>
         }
         {!this.state.component_ready &&

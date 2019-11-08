@@ -2,17 +2,11 @@ import React from 'react'
 import style from './css/basic-data.css'
 
 function BasicData(props){
-  console.log("This is the basicData")
-  console.log(props)
   var languages =[]
   props.languages.forEach((v,k)=>{
             if(k){
               languages.push(k)}
   })
-  console.log("Languages inside of basicData")
-  console.log(languages)
-  console.log(props.data)
-  console.log(props.languages)
   return (
     <div className="container">
         <div className="row justify-content-md-center">

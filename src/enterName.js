@@ -6,20 +6,18 @@ export function Form(props){
 
   const [name, setName]= useState("")
   const [loading, setLoading] = useState(true)
-
   let key = localStorage.getItem("data")
-
-  // useEffect((event)=>{
-  //   setName(event)
-  //   // console.log(event);
-  // })
-
+  let previous_request = null
   if (key){
-    console.log("Data was set up!!");
-    setTimeout(()=>{props.callBack(key)},2000)
+    previous_request = <div>
+                          <p>Would you like to watch again data of the username {key}</p>
+                          <button style={{display: "inline-block"}}
+                                  className="btn btn-warning"
+                                   onClick={()=>props.callBack(key)}>YES</button>
+                        </div>
   }
-
   var effect = (event)=>{
+    localStorage.clear()
     if(typeof event !== "undefined"){
       event.preventDefault()
       var data = event.target[0].value
@@ -39,6 +37,7 @@ export function Form(props){
                     </div>
                     <button  className="btn btn-primary">Get Data</button>
                   </form>
+                  {previous_request}
                 </div>
               </div>
       }else{

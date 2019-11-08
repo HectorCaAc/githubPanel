@@ -7,6 +7,7 @@ d5c7bc
 
 body{
   background-color: #454545;
+  font-size: 25px;
 }
 
 .charts{
@@ -14,4 +15,8 @@ body{
   background-color: #f1fffa;
   padding-top: 20px;
   padding-bottom: 20px;
+}
+
+li{
+  margin-bottom: 4%;
 }
