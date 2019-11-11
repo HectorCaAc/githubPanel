@@ -7,9 +7,6 @@ import {Commits} from './commits.js';
 import {Popularity} from './popularity.js';
 import {Form} from './enterName.js';
 
-// still required to find the way to look for the username
-// It will be a good idea to read more about react
-// to be specific when a product render, and when a product just update the DOM
 class Base extends React.Component{
 
   constructor(props){
@@ -154,16 +151,11 @@ class Base extends React.Component{
                                     let project = entry.url.substring(0,entry.url.lastIndexOf("/"))
                                     let last_slash = project.lastIndexOf("/")+1
                                     project.substring(last_slash)
-                                    let name_project = ""
-                                    if(project.length > 9){
-                                      name_project = project.substring(last_slash, last_slash+9)+".."
-                                    }else{
-                                      name_project = project.substring(last_slash)
-                                    }
+                                    let name_project = project.substring(last_slash)
                                     if (entry.hasOwnProperty("array")){
-                                        return ({x:name_project , y:entry.array.length})
+                                        return ({name_project:name_project , y:entry.array.length})
                                       }
-                                    return {x:name_project, y:0}
+                                    return {name_project:name_project, y:0}
     })
     return commits
   }
@@ -214,7 +206,6 @@ class Base extends React.Component{
         {!this.state.component_ready &&
           <Form callBack={this.start_set_up}/>
         }
-        {!this.state.component_ready && <h4>this.state.user_name</h4>}
       </div>
     )
   }
