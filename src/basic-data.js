@@ -10,10 +10,10 @@ function BasicData(props){
   return (
     <div className="container">
         <div className="row justify-content-md-center">
-          <div className="col-md-6" align="center">
+          <div className="col-lg-6" align="center">
               <img id="picture" src={props.data.picture} alt="Picture Not Found" height="175" width="175"/>
           </div>
-          <div className="col-md-6" id="bio">
+          <div className="col-lg-6" id="bio">
               <p>
               {props.data.bio}
               </p>

@@ -169,15 +169,15 @@ class Base extends React.Component{
 
   render(){
     let columns_charts = {
-                  language: 'col-md-4',
-                  social_data: 'col-md-4',
-                  commits: 'col-md-4'
+                  language: 'col-lg-4',
+                  social_data: 'col-lg-4',
+                  commits: 'col-lg-4'
     }
     let too_many_projects = this.state.commits_data && this.state.commits_data.length > 5
     if(too_many_projects){
-      columns_charts['language']= 'col-md-6'
-      columns_charts['social_data']= 'col-md-6'
-      columns_charts['commits']= 'col-md-12'
+      columns_charts['language']= 'col-lg-6'
+      columns_charts['social_data']= 'col-lg-6'
+      columns_charts['commits']= 'col-lg-12'
     }
     return(
       <div>

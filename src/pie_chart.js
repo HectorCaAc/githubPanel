@@ -6,10 +6,7 @@ export function PieChart(props) {
   let data = []
   props.data.forEach((value, key) => {
     data.push({ x: key, y: value.length })
-  })
-  console.log("Inside of the pieChart");
-  console.log(data);
-  
+  })  
   return (
     <div className="charts">
       <h3>Languages used by the user</h3>
@@ -37,9 +34,7 @@ class CustomLabel extends React.Component {
     let correct_description = copy['slice']['value'] === 1 ? 'project': 'projects'
     let number_projects = `${copy['slice']['value']} ${correct_description} using ${text}`
     copy['text'] = number_projects
-    console.log("inside of the customLable");
-    console.log(copy);
-
+    
     return (
       <g>
         <VictoryLabel {...this.props} />

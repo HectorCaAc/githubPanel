@@ -16,7 +16,7 @@ let ColorKeys = (props) => {
       <h3>Name of the projects</h3>
       <div className="row">
         {props.projects.map((language, key) =>
-            <div key={key} className="col-md-6">
+            <div key={key} className="col-lg-6">
               <div style={{
                 height: '20px', width: '20px',
                 backgroundColor: language.fill,
@@ -50,7 +50,7 @@ export function Commits(props) {
     <div className="charts">
       <h3>Projects</h3>
       <div className={"row"}>
-        <div className="col-md-6">
+        <div className="col-lg-6">
           <VictoryChart
             domain={{ x: [0, 10], y: [0, 30] }}
             scale={{ x: "linear" }}
@@ -66,7 +66,7 @@ export function Commits(props) {
             />
           </VictoryChart>
         </div>
-        <div className="col-md-6">
+        <div className="col-lg-6">
           <ColorKeys projects={adding_attribute} />
         </div>
       </div>
