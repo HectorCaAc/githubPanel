@@ -1,5 +1,5 @@
 import React from 'react'
-import './css/basic-data.css'
+import './css_folder/basic-data.css'
 
 export function Popularity(props){
   return(

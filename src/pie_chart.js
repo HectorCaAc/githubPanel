@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './css/basic-data.css';
+import './css_folder/basic-data.css';
 import { VictoryPie, VictoryLabel, VictoryTooltip } from 'victory';
 
 export function PieChart(props) {
