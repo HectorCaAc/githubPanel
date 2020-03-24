@@ -14,6 +14,16 @@
   z-index: 0;
   height: 100%;
   width: 100%;
+  border: solid 10px #f1fffa;
+  margin: 10px;
+}
+
+.charts h3{
+  border-bottom: 1px solid black;
+  margin-top: 3%;
+  padding-bottom: 2%;
+  padding-left: 2%;
+  font-family: "Times New Roman", Times, serif
 }
 
 #bio{
@@ -24,4 +34,9 @@
 
 .buttons{
   margin: 0% 1% 0% 1%;
+}
+
+.commits {
+  background-color: #d5c7bc;
+  margin: 3%;
 }

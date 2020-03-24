@@ -1,23 +1,26 @@
-import React, {useState, useEffect} from 'react';
-import style from './css/basic-data.css'
-import {VictoryPie, VictoryLabel, VictoryTooltip} from 'victory';
+import React, { useState, useEffect } from 'react';
+import './css/basic-data.css';
+import { VictoryPie, VictoryLabel, VictoryTooltip } from 'victory';
 
-export function PieChart(props){
-  let data =[]
-  props.data.forEach((value, key)=>{
-                    data.push({x:key,y:value.length})
+export function PieChart(props) {
+  let data = []
+  props.data.forEach((value, key) => {
+    data.push({ x: key, y: value.length })
   })
-  return(
-    <div className={style.charts}>
-      <h3>Languages used by the user </h3>
+  console.log("Inside of the pieChart");
+  console.log(data);
+  
+  return (
+    <div className="charts">
+      <h3>Languages used by the user</h3>
       <VictoryPie
-          style={{ labels: { fill: "white" } }}
-          innerRadius={100}
-          labelRadius={120}
-          labels={({ datum }) => `${datum.x}`}
-          labelComponent={<CustomLabel />}
-          data={data}
-        />
+        style={{ labels: { fill: "white" } }}
+        innerRadius={100}
+        labelRadius={120}
+        labels={({ datum }) => `${datum.x}`}
+        labelComponent={<CustomLabel />}
+        data={data}
+      />
     </div>
   )
 }
@@ -28,11 +31,20 @@ export function PieChart(props){
 class CustomLabel extends React.Component {
 
   render() {
+    
+    let copy = {...this.props}
+    let text = copy['text']
+    let correct_description = copy['slice']['value'] === 1 ? 'project': 'projects'
+    let number_projects = `${copy['slice']['value']} ${correct_description} using ${text}`
+    copy['text'] = number_projects
+    console.log("inside of the customLable");
+    console.log(copy);
+
     return (
       <g>
-        <VictoryLabel {...this.props}/>
+        <VictoryLabel {...this.props} />
         <VictoryTooltip
-          {...this.props}
+          {...copy}
           x={200} y={250}
           orientation="top"
           pointerLength={0}
@@ -49,10 +61,10 @@ class CustomLabel extends React.Component {
 CustomLabel.defaultEvents = VictoryTooltip.defaultEvents;
 
 
-function HectorLabel(props){
+function HectorLabel(props) {
   return (
     <g>
-      <VictoryLabel {...props}/>
+      <VictoryLabel {...props} />
       <VictoryTooltip
         {...props}
         x={200} y={250}

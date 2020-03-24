@@ -7,6 +7,7 @@ import {Commits} from './commits.js';
 import {Popularity} from './popularity.js';
 import {Form} from './enterName.js';
 
+
 class Base extends React.Component{
 
   constructor(props){
@@ -167,9 +168,16 @@ class Base extends React.Component{
   }
 
   render(){
-    let too_many_projects = false
-    if(this.state.commits_data && this.state.commits_data.length > 5){
-      too_many_projects = true
+    let columns_charts = {
+                  language: 'col-md-4',
+                  social_data: 'col-md-4',
+                  commits: 'col-md-4'
+    }
+    let too_many_projects = this.state.commits_data && this.state.commits_data.length > 5
+    if(too_many_projects){
+      columns_charts['language']= 'col-md-6'
+      columns_charts['social_data']= 'col-md-6'
+      columns_charts['commits']= 'col-md-12'
     }
     return(
       <div>
@@ -179,23 +187,23 @@ class Base extends React.Component{
                     onClick={()=> this.clear_local_store()}>Enter a new user </button>
             <BasicData data={this.state.data}
                        languages={this.state.pie_data}/>
-              <div className="charts">
+              <div className="data">
                 <div className="row">
-                  <div className="col">
+                  <div className={columns_charts['language']}>
                     <PieChart data={this.state.pie_data}/>
                   </div>
                   {!too_many_projects &&
-                    <div className="col">
+                    <div className={columns_charts['commits']}>
                       <Commits data={this.state.commits_data} />
                     </div>
                   }
-                  <div className="col">
+                  <div className={columns_charts['social_data']}>
                     <Popularity data={this.state.other_data} />
                   </div>
                 </div>
                 {too_many_projects &&
-                  <div className="row" style={{margin:"20px"}}>
-                    <div className="col align-self-center">
+                  <div className="row">
+                    <div className={columns_charts['commits']}>
                       <Commits data={this.state.commits_data} />
                     </div>
                   </div>

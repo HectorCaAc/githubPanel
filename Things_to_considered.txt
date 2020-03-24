@@ -21,4 +21,19 @@ are loaded, My main concern is that it looks all the code will be
 used react and none will be html, It make sense, becuase that is
 part of the functionality of the server side, render the html.
 It looks it will have to use either create a class for that or
-write the whole page in react and render it that way. \
+write the whole page in react and render it that way. 
+
+Things to do :
+[ ] The cards elements should be better looking.
+[ ] Make the site totally mobile friendly
+[ ] Show the number of projects when the mouse is over the language
+[ ] Improve the panel of the information about the users and others
+[ ] Improve the color of the home page, either add some kind of 
+    picture in the background and some css for the loading part
+    (Like walmart does)
+
+Wish list: 
+[ ] Add some projects links, and their date of last commit or something like that
+    add that information like a second pannel for the projects, add a tab to that
+    pannell, Add some kind of filter, either use the date of the last commit
+    # of projects.

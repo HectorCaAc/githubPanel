@@ -12,7 +12,7 @@ class Base extends React.Component{
   }
 
   render(){
-    return{
+    return(
       <div>
         <div id="basic">
         </div>
@@ -37,6 +37,6 @@ class Base extends React.Component{
           </div>
         </div>
       </div>
-    }
+    )
   }
 }

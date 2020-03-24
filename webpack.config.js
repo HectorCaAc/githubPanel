@@ -2,8 +2,9 @@ const path = require('path');
 
 module.exports = {
   watch:true,
-  entry:'./src/index.js',
+  entry:'./index.js',
   mode:'development',
+  context: path.join(__dirname, 'src'),
   output:{
     filename:'[name].bundle.js',
     path: path.resolve(__dirname, 'dist')
@@ -29,7 +30,7 @@ module.exports = {
       {
         test:/\.css$/,
         use:[
-          "style-loader",
+          'style-loader', 
           {
             loader:"css-loader",
             options:{

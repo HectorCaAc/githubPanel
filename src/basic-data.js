@@ -1,5 +1,5 @@
 import React from 'react'
-import style from './css/basic-data.css'
+import './css/basic-data.css'
 
 function BasicData(props){
   var languages =[]
@@ -10,15 +10,15 @@ function BasicData(props){
   return (
     <div className="container">
         <div className="row justify-content-md-center">
-          <div className="col">
-              <img id={style.picture} src={props.data.picture} alt="Picture Not Found" height="175" width="175"/>
+          <div className="col-md-6" align="center">
+              <img id="picture" src={props.data.picture} alt="Picture Not Found" height="175" width="175"/>
           </div>
-          <div className={"col "} id={style.bio}>
+          <div className="col-md-6" id="bio">
               <p>
               {props.data.bio}
               </p>
               {languages.map((entry, id)=>
-                <span key={id} className={"btn btn-primary "+style.buttons}>
+                <span key={id} className={"btn btn-primary buttons"}>
                 {entry}
                 </span>
               )

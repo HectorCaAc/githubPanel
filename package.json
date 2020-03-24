@@ -5,14 +5,16 @@
   "dependencies": {
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-hot-loader": "^4.12.20",
     "react-scripts": "3.0.1",
     "victory": "^33.0.6"
   },
   "scripts": {
     "start": "webpack --watch",
+    "hot-reload": "webpack-dev-server --hot",
     "dev": "webpack-dev-server",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "echo \"this is just a simple test\" && exit 1",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -43,7 +45,7 @@
     "file-loader": "^4.2.0",
     "react-modal": "^3.10.1",
     "style-loader": "^0.23.1",
-    "webpack": "^4.41.0",
+    "webpack": "^4.42.0",
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.7.2"
   }
