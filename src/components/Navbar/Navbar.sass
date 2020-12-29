@@ -1,0 +1,32 @@
+@import '../../page/home'
+    
+.Navbar
+    background-color: $second_background_color
+    display: flex
+    width: 100%
+    justify-content: space-between
+    align-items: center
+    height: 66px
+    margin-bottom: 33px
+    position: sticky
+    top: 0%
+    .Navbar_new_user
+        padding: 7px
+        display: flex
+        justify-content: space-between
+        align-items: center
+        .description
+            display: none
+        &:hover
+            .description
+                display: inline-block
+                transition: display 1000ms linear
+            transition: color 1000ms linear
+            color: #319deb
+            border-radius: 10px
+    .Navbar_logo
+        text-align: right
+        .createBy
+            font-size: small
+
+
