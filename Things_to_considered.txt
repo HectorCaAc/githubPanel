@@ -24,11 +24,11 @@ It looks it will have to use either create a class for that or
 write the whole page in react and render it that way. 
 
 Things to do :
-[ ] The cards elements should be better looking.
-[ ] Make the site totally mobile friendly
-[ ] Show the number of projects when the mouse is over the language
-[ ] Improve the panel of the information about the users and others
-[ ] Improve the color of the home page, either add some kind of 
+[X] The cards elements should be better looking.
+[X] Make the site totally mobile friendly
+[X] Show the number of projects when the mouse is over the language
+[X] Improve the panel of the information about the users and others
+[X] Improve the color of the home page, either add some kind of 
     picture in the background and some css for the loading part
     (Like walmart does)
 

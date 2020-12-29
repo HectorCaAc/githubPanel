@@ -6,17 +6,7 @@ d5c7bc
 454545 */
 
 body{
-  background-color: #454545;
+  background-color: #111523;
   font-size: 25px;
-}
-
-.data{
-  margin-top: 200px;
-  background-color: #f1fffa;
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-
-li{
-  margin-bottom: 4%;
+  color: white
 }
