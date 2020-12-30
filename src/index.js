@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Home from './page/home'
+import EnterName from './page/EnterName'
 
 
 ReactDOM.render(<Home/>, document.getElementById('base'))
