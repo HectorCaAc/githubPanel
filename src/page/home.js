@@ -1,6 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+import { useSelector, useDispatch } from 'react-redux'
+
+import { change } from './userSlice'
+
 import Profile from '../components/Profile/Profile'
 import PieChart from '../components/PieChart/PieChart'
 import Commits from '../components/Commits/Commits'

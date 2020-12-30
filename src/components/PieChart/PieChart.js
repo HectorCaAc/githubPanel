@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { useSelector } from 'react-redux'
 import { VictoryPie, VictoryLabel, VictoryTooltip } from 'victory'
 
 import pieDataDELETELATER from '../Helpers/GetData'
@@ -9,23 +9,23 @@ import '../styles/Card.sass'
 
 function PieChart(Props) {
 
-    let dataPie = pieDataDELETELATER()
-
+    let dataPie = useSelector(data => data.pie)
+    console.log(dataPie.languages)
     return (
         <div className="SmallCard">
             <div className="Header">
                 Languages used by the user
             </div>
-            <PieChartBody data={dataPie.get('pie_data')} />
+            <PieChartBody data={dataPie.languages} />
         </div>
     )
 }
 
 function PieChartBody(props) {
     let data = []
-    props.data.forEach((value, key) => {
-        data.push({ x: key, y: value.length })
-    })
+    for (let language in props.data){
+        data.push({x: language, y: props.data[language].length})
+    }
     return (
         <div>
             <VictoryPie

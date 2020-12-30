@@ -1,13 +1,22 @@
 import React from 'react'
 
+import { useSelector, useDispatch } from 'react-redux'
+
+import { change } from '../../page/userSlice'
+
 import AddBoxIcon from '@material-ui/icons/AddBox'
 
 import './Navbar.sass'
 
 function Navbar() {
+
+    const dispatch = useDispatch()
+
     return (
         <div className="Navbar">
-            <div className="Navbar_new_user">
+            <div className="Navbar_new_user"
+                onClick={()=> dispatch(change())}
+            >
                 <AddBoxIcon fontSize="large"/>
                 <div className="description">
                     Enter a new User
