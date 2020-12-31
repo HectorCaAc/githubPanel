@@ -1,9 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { useSelector, useDispatch } from 'react-redux'
-
-import { change } from './userSlice'
+import { useSelector } from 'react-redux'
 
 import Profile from '../components/Profile/Profile'
 import PieChart from '../components/PieChart/PieChart'
@@ -11,28 +9,33 @@ import Commits from '../components/Commits/Commits'
 import Navbar from '../components/Navbar/Navbar'
 import Social from '../components/Social/Social'
 
+import EnterHome from './EnterName'
+
 import './home.sass'
 
-class Home extends React.Component {
+const Home = () => {
 
-    render() {
-        return (
-            <div className="Home">
-                <Navbar />
-                <div className="Home_Body">
-                    <div className="SmallElements">
-                        <Profile />
-                        <Commits />
-                        <PieChart />
-                        <Social/>
-                    </div>
-                </div>
-                <div className="largestElements">
-
-                </div>
+    let currentUser = useSelector(storage => storage.currentUser)
+    console.log(currentUser.user)
+    const USERENTER = <div className="Home">
+        <Navbar />
+        <div className="Home_Body">
+            <div className="SmallElements">
+                <Profile />
+                <Commits />
+                <PieChart />
+                <Social />
             </div>
-        )
-    }
+        </div>
+        <div className="largestElements">
+        </div>
+    </div>
+
+    let body = currentUser.user === '' ? <EnterHome /> : USERENTER
+
+    return (
+        body
+    )
 }
 
 export default Home

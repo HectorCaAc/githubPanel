@@ -5,7 +5,7 @@ import pieDataDELETELATER from '../components/Helpers/GetData'
 var pieChart = new Map()
 
 let test = pieDataDELETELATER().get('pie_data')
-console.log(test)
+console.log(test) 
 
 let initialState = {
     languages: {

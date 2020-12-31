@@ -22,24 +22,27 @@ social.set('PublicRepost', 8)
 export const userSlice = createSlice({
     name: 'user', 
     initialState: {
-        user: 'HectorCaAc',
+        user: '',
         languages: ['python', 'javascript', 'HTML', 'CSS', 'Shell', 'Java', 'DockerFile'],
         bio: 'No bio'
     },
     reducers: {
+        defaultName: state=>{
+            state.user = ''
+        },
         change: state =>{
-            state.user = 'New user'
+            state.user = ''
         },
         clean: state =>{
             state.user  = ''
         },
-        fetchData: (state, user) =>{
-            state.user = user
+        newUser: (state, action) =>{
+            state.user = action.payload
         }
     }
 })
 
-export const {change, clean, fetchData} = userSlice.actions
+export const {change, clean, newUser, defaultName} = userSlice.actions
 
 export const selectUser = state => state.name.value
 
