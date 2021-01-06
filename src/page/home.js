@@ -16,7 +16,6 @@ import './home.sass'
 const Home = () => {
 
     let currentUser = useSelector(storage => storage.currentUser)
-    console.log(currentUser.user)
     const USERENTER = <div className="Home">
         <Navbar />
         <div className="Home_Body">

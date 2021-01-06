@@ -14,6 +14,8 @@ import '../styles/Card.sass'
 function CommitsWrapper() {
 
     let DataPieDataWrapper = CommitsDELETELATER()
+    console.log('data for the commits');
+    console.log(DataPieDataWrapper.get('commits_data'));
 
     return (
         <div className="SmallCard">

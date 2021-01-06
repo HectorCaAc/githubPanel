@@ -21,7 +21,7 @@ export default function Profile() {
         <div className="SmallCard">
             <div className="Header">
                 {user.user}
-                <div className="picture">H</div>
+                <div className="picture">Picture Holder</div>
             </div>
             Programing Languages
             <div className="Profile_Languages">

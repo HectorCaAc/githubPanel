@@ -16,7 +16,7 @@ function PieChart(Props) {
             <div className="Header">
                 Languages used by the user
             </div>
-            <PieChartBody data={dataPie.languages} />
+            <PieChartBody data={dataPie.projects} />
         </div>
     )
 }

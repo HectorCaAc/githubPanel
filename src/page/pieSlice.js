@@ -8,14 +8,13 @@ let test = pieDataDELETELATER().get('pie_data')
 console.log(test) 
 
 let initialState = {
-    languages: {
+    projects: {
         'JavaScript': [ "githubPanel", "PB", "PostApp"],
         'HTML':[ "githubPanel", "HectorCaAc.github.io", "PB"],
         'CSS': ["githubPanel", "PB", "PostApp"],
         'Java': ["Monto", "PB" ],
         'Python':[ "PostApp" ],
     },
-    foreal: ['test']
 }
 
 export const pieSlice = createSlice({
