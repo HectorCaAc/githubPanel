@@ -40,7 +40,6 @@ function getRandomColor() {
 }
 
 export function Commits(props) {
-  console.log('commits problem ');
   let adding_attribute = props.data.map((entry, key) => {
     entry.fill = getRandomColor()
     entry.x = key + 1

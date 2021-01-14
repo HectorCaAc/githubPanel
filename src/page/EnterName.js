@@ -36,8 +36,6 @@ function EnterName() {
 
     const submitUser = (event) => {
         event.preventDefault()
-        // dispatch(ThunkFecth('Hector'))
-        console.log(user)
         dispatch(ThunkFecth(user))
     }
 

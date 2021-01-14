@@ -14,11 +14,8 @@ import '../styles/Card.sass'
 
 function CommitsWrapper() {
 
-    // let DataPieDataWrapper = CommitsDELETELATER()
     let user = useSelector(data => data.currentUser)
     let commits = user.projects
-    console.log('data for the commits');
-    console.log(commits)
 
     return (
         <div className="SmallCard">
@@ -29,8 +26,6 @@ function CommitsWrapper() {
 }
 
 let ColorKeys = (props) => {
-    console.log('Inside of the colorKeys');
-    console.log(props.data);
     return (
         <div className="Legend">
             Name of the projects
@@ -42,8 +37,8 @@ let ColorKeys = (props) => {
                             backgroundColor: language.fill,
                             borderStyle: 'solid',
                             display: 'inline-block'
-                        }}> </div>
-                        {language.name_project}
+                        }}></div>
+                        {language.name} 
                     </div>)}
             </div>
         </div>
@@ -60,16 +55,14 @@ function getRandomColor() {
 }
 
 export function Commits(props) {
-    console.log('Problem inside of the Commits ');
-    console.log(props);
+
     let adding_attribute = props.data.map((entry, key) => {
         let newEntry = {...entry}
         newEntry.fill = getRandomColor()
         newEntry.x = key + 1
         return newEntry
     })
-    console.log('after')
-    console.log(adding_attribute)
+
     return (
         <div className="Commits">
             <VictoryChart

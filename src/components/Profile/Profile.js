@@ -12,14 +12,9 @@ export default function Profile() {
     let languages = user.languages
     let bio = user.bio
 
-    console.log('current User')
-    console.log(user)
-    console.log('Current Languages')
-    console.log(languages)
-
-    let pills = Object.keys(languages).map((entry, key) =>{
-        let language = Object.keys(entry)[0]
-        let icon = language.visible ? <CheckBoxOutlineBlankIcon/> : <CheckBoxIcon/>
+    let pills = languages.map((entry, key) =>{
+        let language = entry.name
+        let icon = language.visible ? <CheckBoxIcon/> : <CheckBoxOutlineBlankIcon/>
         return (
             <span key={key}>
                 {icon}

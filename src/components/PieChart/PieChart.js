@@ -10,21 +10,20 @@ import '../styles/Card.sass'
 function PieChart(Props) {
 
     let dataPie = useSelector(data => data.currentUser)
-    console.log(dataPie.projects)
     return (
         <div className="SmallCard">
             <div className="Header">
                 Languages used by the user
             </div>
-            <PieChartBody data={dataPie.projects} />
+            <PieChartBody data={dataPie.languages} />
         </div>
     )
 }
 
 function PieChartBody(props) {
     let data = []
-    for (let language in props.data){
-        data.push({x: language, y: props.data[language].length})
+    for (let language of props.data){
+        data.push({x: language.name, y:language.appear})
     }
     return (
         <div>

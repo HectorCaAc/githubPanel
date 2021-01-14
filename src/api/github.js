@@ -14,7 +14,6 @@ const getProjectsURL = (githubUserName) => {
 }
 
 const getLanguagesProjects =  (projectsName, user) => {
-    console.log('Ready to make promises for the langauges of all  the projecs')
     let languagesURL = projectsName.map(project =>({
         name: project,
         url: `https://api.github.com/repos/${user}/${project}/languages`
