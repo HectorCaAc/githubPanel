@@ -9,8 +9,8 @@ import '../styles/Card.sass'
 
 function PieChart(Props) {
 
-    let dataPie = useSelector(data => data.pie)
-    console.log(dataPie.languages)
+    let dataPie = useSelector(data => data.currentUser)
+    console.log(dataPie.projects)
     return (
         <div className="SmallCard">
             <div className="Header">

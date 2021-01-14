@@ -18,22 +18,19 @@ Objects store in the store
         location:
         picture:
         publicRepose:
-        languages:
         loading:
         user:
-    }
-    pie:{
-        languages:{
-            projects: Array[String]
+    },
+    languages:{
+        language{
+            appear: amount,
+            visible: Boolean
         }
     },
     commits: [
         {name_project: y: (commits)}
     ]
 }
-
-
-
 */
 
 const readLocalStorage = () => {
@@ -44,7 +41,7 @@ const readLocalStorage = () => {
 
 const preloadedState = {
     currentUser: {
-        user: 'Hector',
+        user: '',
         languages: [],
         bio: '',
         loading: false,
@@ -54,13 +51,14 @@ const preloadedState = {
         location: '',
         hireable: false,
         publicRepose: 0,
-        picture: ''
+        picture: '',
+        projects: {}
     },
-    pie: {
-        projects: {
-            'JavaScript': [ "githubPanel", "PB", "PostApp"],
-        },
-    } 
+    // pie: {
+    //     projects: {
+    //         'JavaScript': [ "githubPanel", "PB", "PostApp"],
+    //     },
+    // } 
     // commits: [
     //     {name_project: {
     //         y: 10
@@ -68,13 +66,12 @@ const preloadedState = {
     //     }
     // ]
 }
-console.log(preloadedState);
 
 
 export default configureStore({
     reducer: {
         currentUser: userReducer,
-        pie: pieReducer
+        // pie: pieReducer
     },
     preloadedState
 })

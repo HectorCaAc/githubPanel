@@ -1,12 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import pieDataDELETELATER from '../components/Helpers/GetData'
-
-var pieChart = new Map()
-
-let test = pieDataDELETELATER().get('pie_data')
-console.log(test) 
-
 let initialState = {
     projects: {
         'JavaScript': [ "githubPanel", "PB", "PostApp"],

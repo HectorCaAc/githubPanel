@@ -1,7 +1,8 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import Crop32Icon from '@material-ui/icons/Crop32'
-
+// import Crop32Icon from '@material-ui/icons/Crop32'
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import '../styles/Card.sass'
 import './profile.sass'
 
@@ -10,12 +11,22 @@ export default function Profile() {
     let user = useSelector(data => data.currentUser)
     let languages = user.languages
     let bio = user.bio
-    let pills = languages.map((entry, key) =>
-        <span key={key}>
-            <Crop32Icon />
-            {entry}
-        </span>
-    )
+
+    console.log('current User')
+    console.log(user)
+    console.log('Current Languages')
+    console.log(languages)
+
+    let pills = Object.keys(languages).map((entry, key) =>{
+        let language = Object.keys(entry)[0]
+        let icon = language.visible ? <CheckBoxOutlineBlankIcon/> : <CheckBoxIcon/>
+        return (
+            <span key={key}>
+                {icon}
+                {language}
+            </span>
+        )
+    })
 
     return (
         <div className="SmallCard">

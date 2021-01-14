@@ -1,32 +1,81 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { fakeAPI } from '../api/github'
-// For now it will move the functions from the api helpers to here
-import data from "../components/Helpers/GetData";
+import { getProfile, getProjectsURL, getLanguagesProjects, getCommitsProjects } from '../api/github'
 
-let getData = data()
+const constructLanguages = (requestLanguages) => {
+    console.log('constructLangauges');
+    let languages = {}
+    for (let language of requestLanguages) {
+        let keys = Object.keys(language)
+        if (keys[0] in languages) {
+            languages[keys[0]].appear += 1
+        } else {
+            languages[keys[0]] = {
+                appear: 1,
+                visible: true
+            }
+        }
+    }
+    console.log('--end--');
+    return languages
+}
 
-// commits component
-let commits = getData.get('commits_data')
-// pier chart component
-let pieChart = getData.get('pie_data')
+const contructCommits = (requestCommits) => {
+    let projects = []
+    for (let commit of requestCommits) {
+        let name = commit.project
+        let commits  = commit.length
+        let project =  new Object()
+        project.name= name
+        project.y=commits
+        projects.push(project)
+    }
+    console.log('end---');
+    return projects
+}
 
-//Social Component
-let social = new Map()
-social.set('Followers', 1)
-social.set('Following', 2)
-social.set('CurrentCompany', 'No Company')
-social.set('Location', 'Lincoln Ne ')
-social.set('Hireable', 'No Hireable')
-social.set('PublicRepost', 8)
+const constructUser = (requestUser, userName) => {
+    let user = {}
+    try {
+        user.user = userName
+        user.bio = requestUser.bio || "No bio"
+        user.followers = requestUser.followers || 0
+        user.following = requestUser.following || 0
+        user.company = requestUser.company || 'No Company'
+        user.location = requestUser.location || "Some Place"
+        user.hireable = requestUser.hireable || "No"
+        user.publicRepose = requestUser.public_repos || 0
+        user.picture = requestUser.avatar_url
+        return user
+    }catch (e){
+        console.error('There was an error construct the user')
+        console.error(e)
+    }
+    
+}
 
-export const ThunkFecth = createAsyncThunk('user/FetchUser', async( user)=>{
-    console.log(`User that will get data from ${user}`);
-    const response = await fakeAPI()
-    return response.use
+export const ThunkFecth = createAsyncThunk('user/FetchUser', async (userQuery) => {
+    try{
+        let projectsUrl = await getProjectsURL(userQuery)
+        let requestCommits = await getCommitsProjects(projectsUrl, userQuery)
+        let requestLanguages = await getLanguagesProjects(projectsUrl, userQuery)
+        let requestUser = await getProfile(userQuery)
+        let projects = contructCommits(requestCommits)
+        let languages = constructLanguages(requestLanguages)
+        let user = constructUser(requestUser, userQuery)
+        user.languages = languages
+        user.projects = projects
+        localStorage.setItem("API", JSON.stringify(user))
+        return user
+    } catch(e){
+        console.error('Error making the request to Github')
+        console.error(e)
+    }
+    
 })
 
+
 export const userSlice = createSlice({
-    name: 'user', 
+    name: 'user',
     initialState: {
         user: '',
         languages: [],
@@ -34,62 +83,46 @@ export const userSlice = createSlice({
         loading: false,
         followers: 0,
         following: 0,
-        company: '', 
+        company: '',
         location: '',
         hireable: false,
         publicRepose: 0,
-        picture: ''
+        picture: '',
+        projects: {}
     },
     reducers: {
-        defaultName: state=>{
+        defaultName: state => {
             state.user = ''
         },
-        change: state =>{
+        change: state => {
             state.user = ''
         },
-        clean: state =>{
-            state.user  = ''
+        clean: state => {
+            state.user = ''
         },
-        newUser: (state, action) =>{
-            state.user = action.payload
+        setUserStorage: (state, action) => {
+            // state = action.payload
+            return action.payload
         },
-        fetchData: state =>{
+        fetchData: state => {
             state.loading = true
         },
-        fetchComplete: state =>{
+        fetchComplete: state => {
             state.loading = false
         }
     },
-    extraReducers: builder =>{
+    extraReducers: builder => {
         builder
-            .addCase(ThunkFecth.pending, (state, action)=>{
+            .addCase(ThunkFecth.pending, (state, action) => {
                 console.log('WAITING FOR REPONSE');
             })
-            .addCase(ThunkFecth.fulfilled, (state, action)=>{
-                state.user = action.payload
+            .addCase(ThunkFecth.fulfilled, (state, action) => {
+                return action.payload
             })
     }
 })
 
-// require to use the tunk
-// This is the middleware that I do not need to write
-// This is a simple action constructor with the main problem that
-// that at the moment of calling this function the programe must know that is a contructor
-export const fetchData = async (dispatch, getState)=>{
-    console.log('not pure function')
-    let data = await fakeAPI()
-    dispatch({type: 'user/newUser', payload: data.user})
-    // dispatch(userSlice.actions.newUser(data.user))
-}
-
-export const ActionFetch = () => async(dispatch, getState)=>{
-    console.log('Thunk and action creator');
-    let data = await fakeAPI()
-    dispatch({type: 'user/newUser', payload: data.user})
-}
-
-
-export const {change, clean, newUser, defaultName, fetchComplete} = userSlice.actions
+export const { change, clean, setUserStorage, defaultName, fetchComplete } = userSlice.actions
 
 export const selectUser = state => state.name.value
 

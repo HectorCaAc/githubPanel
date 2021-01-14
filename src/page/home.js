@@ -15,6 +15,7 @@ import './home.sass'
 
 const Home = () => {
 
+    // This hook should be responsible for storing the data inside of the store
     let currentUser = useSelector(storage => storage.currentUser)
     const USERENTER = <div className="Home">
         <Navbar />

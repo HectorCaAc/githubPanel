@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import {
     VictoryStack, VictoryAxis,
     VictoryChart, VictoryBar, Bar
@@ -13,24 +14,28 @@ import '../styles/Card.sass'
 
 function CommitsWrapper() {
 
-    let DataPieDataWrapper = CommitsDELETELATER()
+    // let DataPieDataWrapper = CommitsDELETELATER()
+    let user = useSelector(data => data.currentUser)
+    let commits = user.projects
     console.log('data for the commits');
-    console.log(DataPieDataWrapper.get('commits_data'));
+    console.log(commits)
 
     return (
         <div className="SmallCard">
             <div className="Header">Commits To Different Projects</div>
-            <Commits data={DataPieDataWrapper.get('commits_data')} />
+            <Commits data={commits} />
         </div>
     )
 }
 
 let ColorKeys = (props) => {
+    console.log('Inside of the colorKeys');
+    console.log(props.data);
     return (
         <div className="Legend">
             Name of the projects
             <div className="LegendList">
-                {props.projects.map((language, key) =>
+                {props.data.map((language, key) =>
                     <div key={key} className="LegentItems">
                         <div style={{
                             height: '20px', width: '20px',
@@ -55,12 +60,16 @@ function getRandomColor() {
 }
 
 export function Commits(props) {
+    console.log('Problem inside of the Commits ');
+    console.log(props);
     let adding_attribute = props.data.map((entry, key) => {
-        entry.fill = getRandomColor()
-        entry.x = key + 1
-        return entry
-    }
-    )
+        let newEntry = {...entry}
+        newEntry.fill = getRandomColor()
+        newEntry.x = key + 1
+        return newEntry
+    })
+    console.log('after')
+    console.log(adding_attribute)
     return (
         <div className="Commits">
             <VictoryChart
@@ -77,7 +86,7 @@ export function Commits(props) {
                     data={adding_attribute}
                 />
             </VictoryChart>
-            <ColorKeys projects={adding_attribute} />
+            <ColorKeys data={adding_attribute} />
         </div>
     )
 }
