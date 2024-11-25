@@ -17,7 +17,7 @@
     "start": "webpack --watch",
     "hot-reload": "webpack-dev-server --hot",
     "dev": "webpack-dev-server",
-    "build": "react-scripts build",
+    "build": "webpack --mode production --progress",
     "test": "echo \"this is just a simple test\" && exit 1",
     "eject": "react-scripts eject"
   },
@@ -46,6 +46,7 @@
     "@reduxjs/toolkit": "^1.5.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^3.6.0",
     "file-loader": "^4.3.0",
     "react-modal": "^3.10.1",

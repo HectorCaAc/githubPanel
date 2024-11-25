@@ -1,4 +1,7 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');  // For JS minification
+const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // For cleaning output 
 
 module.exports = {
   watch:true,
@@ -7,7 +10,7 @@ module.exports = {
   context: path.join(__dirname, 'src'),
   output:{
     filename:'[name].bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
   },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
@@ -47,5 +50,29 @@ module.exports = {
         ]
       }
     ]
-  }
+  },
+  plugins: [
+    new CleanWebpackPlugin(), // Clean the output folder before each build
+    new HtmlWebpackPlugin({
+      template: './index.html',
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        minifyCSS: true,
+        minifyJS: true,
+      },
+    }),
+  ],
+  optimization: {
+    minimize: true, // Enable JavaScript minification
+    minimizer: [
+      new TerserPlugin(), // For JS minification
+    ],
+    splitChunks: {
+      chunks: 'all', // Split vendor libraries into separate bundles
+    },
+  },
+  devtool: 'source-map',  // Optional: Generate source maps for debugging in production
 };
