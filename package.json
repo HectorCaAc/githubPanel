@@ -9,7 +9,7 @@
     "react-dom": "^16.8.6",
     "react-hot-loader": "^4.12.20",
     "react-redux": "^7.2.2",
-    "react-scripts": "3.0.1",
+    "react-scripts": "3.4.4",
     "redux-thunk": "^2.3.0",
     "victory": "^33.0.6"
   },
@@ -55,7 +55,7 @@
     "sass-loader": "^10.5.2",
     "style-loader": "^0.23.1",
     "webpack": "^4.44.2",
-    "webpack-cli": "^3.3.9",
+    "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.7.2"
   }
 }
